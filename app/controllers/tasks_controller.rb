@@ -1,10 +1,12 @@
 class TasksController < ApplicationController
+  before_action :authenticate_account! # Autentica usuarios
   before_action :set_task, only: [:show, :edit, :update, :destroy]
 
   # GET /tasks
   # GET /tasks.json
   def index
-    @tasks = Task.all
+    @tasks = current_account.tasks
+
   end
 
   # GET /tasks/1
@@ -14,7 +16,7 @@ class TasksController < ApplicationController
 
   # GET /tasks/new
   def new
-    @task = Task.new
+    @task = current_account.tasks.new
   end
 
   # GET /tasks/1/edit
@@ -24,7 +26,7 @@ class TasksController < ApplicationController
   # POST /tasks
   # POST /tasks.json
   def create
-    @task = Task.new(task_params)
+    @task = current_account.tasks.new(task_params)
 
     respond_to do |format|
       if @task.save
@@ -64,7 +66,7 @@ class TasksController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_task
-      @task = Task.find(params[:id])
+      @task = current_account.tasks.find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

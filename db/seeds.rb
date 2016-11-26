@@ -5,3 +5,7 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+
+account = Account.find_by(email: "colopezfuentes@gmail.com")
+
+1000.times { account.tasks.create(names: Faker::Name.name, description: Faker::Lorem.sentence(3,true)) }
